@@ -10,10 +10,16 @@ Stamp-PiRate
   * passlib
   * bcrypt
   * pytest
-  * 
+  *
+
 
 1 - Usage
 -----------------------------
+- User admin
+using the useradmin script
+
+- running the server
+
 
 2 - Testing
 -----------------------------
