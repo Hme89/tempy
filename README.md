@@ -1,4 +1,4 @@
-Stamp-PiRate
+TemPy
 =============================
 
 0 - Requirements
@@ -10,7 +10,8 @@ Stamp-PiRate
   * passlib
   * bcrypt
   * pytest
-  *
+* rclone
+
 
 
 1 - Usage

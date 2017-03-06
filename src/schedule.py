@@ -2,11 +2,11 @@ import time
 
 class Schedule:
 
-    def __init__(self, sched_filename):
+    def __init__(self, sched_path):
         self.events = []
-        self.target_temp = 20
-        self.schedule_path = "remote/schedule"
+        self.schedule_path = sched_path
         self.load_schedule()
+        self.__target_temp = 20
 
     def get_target_temp(self):
         t = time.localtime()
@@ -15,9 +15,9 @@ class Schedule:
             if event[0] <= t.tm_wday:
                 if event[1] <= t.tm_hour:
                     if event[2] <= t.tm_min:
-                        self.target_temp = event[3]
+                        self.__target_temp = event[3]
 
-        return self.target_temp
+        return self.__target_temp
 
     def load_schedule(self):
         try:
@@ -25,7 +25,8 @@ class Schedule:
         except:
             print("Could not load heat schedule file, using old schedule")
             return
-        sched_lines = infile.readlines()[2:]
+
+        sched_lines = [line for line in infile if line[0] != "#"]
         infile.close()
 
         if len(sched_lines) != 7:
