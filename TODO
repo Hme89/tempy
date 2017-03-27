@@ -1,8 +1,4 @@
-* Implement logging into log folder
 * connect ctrl and flask server
 * implement outisde temp sensor
 * Testing files
 * Plotting and converting tmeperature datapythsud
-* split flaskapp to dedicated server
-* Rsync for transfer? ssh-tunel? check once every hour?
-* logfile transfer

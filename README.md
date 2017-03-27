@@ -10,7 +10,7 @@ TemPy
   * passlib
   * bcrypt
   * pytest
-* rclone
+* rsync
 
 
 

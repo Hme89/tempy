@@ -1,6 +1,0 @@
-# Detetmines state on line 1 {on / off}
-# mode on line 2 {remote / schedule}
-# and target temperature on line 3 {int}
-on
-remote
-21
