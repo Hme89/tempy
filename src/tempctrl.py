@@ -1,8 +1,6 @@
 # import GPIOEmu as GPIO    # dummy GPIO library for testing
-try:
-    import RPi.GPIO as GPIO
-except RuntimeError:
-    print("Error importing RPi.GPIO, be sure to run with root privileges.")
+import RPi.GPIO as GPIO
+
 import time
 import pickle
 from src.schedule import Schedule
@@ -94,7 +92,7 @@ class TempCtrl:
 
     def status(self):
         # Return current heating status and temp ect.
-        print("""
+        print("""\nStatus of config values
         pwr            {}
         target_temp    {}
         mode           {}
@@ -125,7 +123,7 @@ class TempCtrl:
                     self.set_heater("OFF")
                     self.last_on = time.time()
 
-            self.logger.log.debug("Oven is {} : t_in: {} : t_target: {}".format(
+            self.logger.log.debug("Running with oven {} : t_in: {} : t_target: {}".format(
                 "on" if GPIO.input(self.heater_pin) == 0 else "off",
                 inside_temp, current_target_temp))
 

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 import  time
 import subprocess
 from threading import Thread, Timer
@@ -12,7 +12,7 @@ pwr_thread = Thread(target = ctrl.start)
 def sync_and_start(pwr_thread):
 
     remote = "hmepisrv:/home/hme/Remotes/cabin"
-    local  = "/home/hme/Documents/Projects/tempy"
+    local  = "/usr/share/tempy"
 
     cmd1 = "rsync -tuv -e ssh --compress-level=9 {}/* {}/remote".format(remote, local)
     cmd2 = "rsync -tuv -e ssh --compress-level=9 {}/remote/config.pcl {}/config.pcl".format(local, remote)
