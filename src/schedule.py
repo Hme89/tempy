@@ -12,12 +12,13 @@ class Schedule:
         t = time.localtime()
 
         for event in reversed(self.events):
+            print("self target :  ",self.__target_temp)
             if event[0] <= t.tm_wday:
                 if event[1] <= t.tm_hour:
                     if event[2] <= t.tm_min:
+                        print("Temp updated!")
                         self.__target_temp = event[3]
-
-        return self.__target_temp
+                        return self.__target_temp
 
     def load_schedule(self):
         try:
