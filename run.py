@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import  time
 import subprocess
 from threading import Thread, Timer

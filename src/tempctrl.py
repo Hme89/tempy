@@ -1,8 +1,8 @@
-import GPIOEmu as GPIO    # dummy GPIO library for testing
-# try:
-#     import RPi.GPIO as GPIO
-# except RuntimeError:
-#     print("Error importing RPi.GPIO, be sure to run with root privileges.")
+# import GPIOEmu as GPIO    # dummy GPIO library for testing
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO, be sure to run with root privileges.")
 import time
 import pickle
 from src.schedule import Schedule
@@ -38,7 +38,7 @@ class TempCtrl:
             self.mode = values["mode"]
             self.update_freq = values["update_freq"]        # time beteen remote updates
             self.measure_freq = values["measure_freq"]        # time beteen remote updates
-            self.temp_log_freq = values["measure_freq"]        # time beteen remote updates
+            self.temp_log_freq = values["temp_log_freq"]        # time beteen remote updates
             self.relay_cooldown = values["relay_cooldown"]  # Turn on oven max every n seconds
         except:
             self.logger.log.warning("Bad config file, using old...: ",exc_info = True )
@@ -62,10 +62,10 @@ class TempCtrl:
 
 
     def get_temp(self, sensor="inside"):
-        # Read temp from file w1
-        #TODO
-        # REMOVE
-        return 15
+        # # Read temp from file w1
+        #
+        # # Debugging
+        # return 15
 
         try:
             infile =  open("/sys/bus/w1/devices/{}/w1_slave".format(self.sensor_id[sensor]), "r")
@@ -107,7 +107,7 @@ class TempCtrl:
 
 
     def start(self):
-        self.logger.log.debug("Tries to start")
+        self.logger.log.debug("Tries to start...")
 
         while self.pwr:
             inside_temp = self.get_temp("inside")
@@ -125,7 +125,7 @@ class TempCtrl:
                     self.set_heater("OFF")
                     self.last_on = time.time()
 
-            self.logger.log.info("Oven is {} : t_in: {} : t_target: {}".format(
+            self.logger.log.debug("Oven is {} : t_in: {} : t_target: {}".format(
                 "on" if GPIO.input(self.heater_pin) == 0 else "off",
                 inside_temp, current_target_temp))
 
@@ -139,7 +139,7 @@ class TempCtrl:
             time.time(), temp_inside, "N/A"))
 
     def turn_off(self):
-        self.logger.log.info("Turning off and writes to pcl... ")
+        self.logger.log.warning("Turning off and writes to pcl... ")
         self.pwr = False
         self.set_heater(0)
         self.last_on = time.time()
