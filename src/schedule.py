@@ -1,5 +1,4 @@
 import time
-from src.logger import Logger
 
 class Schedule:
 
@@ -7,7 +6,6 @@ class Schedule:
         self.events = []
         self.schedule_path = sched_path
         self.load_schedule()
-        self.logger = Logger()
         self.__target_temp = 20
 
     def get_target_temp(self):

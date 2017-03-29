@@ -23,7 +23,7 @@ class TempCtrl:
 
         # Setup gpio
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.heater_pin, GPIO.OUT, initial=0)
+        GPIO.setup(self.heater_pin, GPIO.OUT, initial=1)
 
 
     def __del__(self):
