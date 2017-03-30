@@ -5,7 +5,8 @@ TemPy
 -----------------------------
 * Python 3.6.x
 * rsync
-
+* libssh
+* sudo rights
 
 
 1 - Usage

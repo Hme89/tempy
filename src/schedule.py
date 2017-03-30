@@ -19,6 +19,8 @@ class Schedule:
                         print("Temp updated!")
                         self.__target_temp = event[3]
                         return self.__target_temp
+        # If start of week return last target temp 
+        return self.__target_temp
 
     def load_schedule(self):
         try:
