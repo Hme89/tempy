@@ -10,14 +10,3 @@ RestartSec=3600
 
 [Install]
 WantedBy=multi-user.target
-[Unit]
-Description=Python script for remote management of teh cabin temperature
-
-[Service]
-WorkingDirectory=/usr/share/tempy
-ExecStart=/usr/share/tempy/run.py
-Restart=always
-RestartSec=3600
-
-[Install]
-WantedBy=multi-user.target
