@@ -1,0 +1,34 @@
+Raspberry Pi
+  "dtoverlay=w1-gpio" in /boot/config.txt
+  "w1-gpio" and "w1-therm" in /etc/modules-load.d/w1therm.conf
+  """
+  Host hmepisrv
+    HostName hmepisrv.nsupdate.info
+    User hme
+    IdentityFile /home/hme/.ssh/id_rsa
+    Compression yes
+    CompressionLevel 9
+  """ in /etc/ssh/ssh_config with id_rsa.pub in authorized_keys in
+      ~/.ssh on the other end
+
+tempy
+  this program :)
+  place folder in /usr/share/tempy
+  Place systemd file in /etc/systemd/system/tempy
+  systemctl enable & start
+
+vnstat
+  monitor data usage
+  edit /etc/vnstat.conf to point to correct interface
+  systemctl enable & start
+
+ddclient
+  Update public ip address to nsupdate.info for ssh access
+  edit /etc/ddclient/ddclient.conf with config from home page
+  systemctl enable & start
+
+sshd
+  ssh access
+  edit /etc/ssh/sshd_config
+  keys in ~/.ssh/
+  systemctl enable & start

@@ -12,8 +12,8 @@ class Logger:
         self.templog.setLevel(logging.INFO)
         self.log.setLevel(logging.DEBUG)
 
-        temphandler = RotatingFileHandler("log/templog", maxBytes=25E6, backupCount=14)
-        loghandler = RotatingFileHandler("log/log", maxBytes=2E6, backupCount=2)
+        temphandler = RotatingFileHandler("log/templog", maxBytes=25E6, backupCount=10)
+        loghandler = RotatingFileHandler("log/log", maxBytes=1E6, backupCount=2)
         log_formatter = logging.Formatter('%(asctime)s->  %(levelname)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S ')
         temp_formatter = logging.Formatter('%(asctime)s-> %(message)s', datefmt='%d/%m/%Y %H:%M:%S ')
         temphandler.setLevel(logging.DEBUG)
