@@ -6,6 +6,8 @@ class Logger:
     """Setup for rotating logging of program messages and temperature."""
     def __init__(self):
 
+        self.make_log_dir("log")
+
         self.templog = logging.getLogger("Rotating temperature log")
         self.log = logging.getLogger("Rotating log")
 
@@ -23,3 +25,7 @@ class Logger:
 
         self.templog.addHandler(temphandler)
         self.log.addHandler(loghandler)
+
+    def make_log_dir(self, directory):
+        if not os.path.exists(directory):
+            os.makedirs(directory)

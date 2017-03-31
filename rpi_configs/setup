@@ -12,8 +12,8 @@ Raspberry Pi
       ~/.ssh on the other end
 
 tempy
-  this program :)
-  place folder in /usr/share/tempy
+  this program :) Placed in home folder for easy guthub pulled updates
+  place folder:  /home/hme/tempy
   Place systemd file in /etc/systemd/system/tempy
   systemctl enable & start
 

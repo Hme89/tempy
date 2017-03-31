@@ -61,15 +61,11 @@ class TempCtrl:
 
     def get_temp(self, sensor="inside"):
         # # Read temp from file w1
-        #
-        # # Debugging
-        # return 15
 
         try:
             infile =  open("/sys/bus/w1/devices/{}/w1_slave".format(self.sensor_id[sensor]), "r")
             temp = float(infile.readlines()[1].split("=")[1])/1000.
             infile.close()
-            # Log the temperature
             return temp
         except Exception:
             err = "Temperature sensor '{}' failure, turning off..\n".format(sensor)

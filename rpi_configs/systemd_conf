@@ -3,8 +3,8 @@
 Description=Python script for remote management of teh cabin temperature
 
 [Service]
-WorkingDirectory=/usr/share/tempy
-ExecStart=/usr/share/tempy/run.py
+WorkingDirectory=/home/hme/tempy
+ExecStart=/home/hme/tempy/run.py
 Restart=always
 RestartSec=3600
 
