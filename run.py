@@ -12,7 +12,7 @@ pwr_thread = Thread(target = ctrl.start)
 def sync_and_start(pwr_thread):
 
     remote = "hmepisrv:/home/hme/Remotes/cabin"
-    local  = "/usr/share/tempy"
+    local  = "/home/hme/tempy"
 
     cmd1 = "rsync -tuv -e ssh --compress-level=9 {}/* {}/remote".format(remote, local)
     cmd2 = "rsync -tuv -e ssh --compress-level=9 {}/remote/config.pcl {}/config.pcl".format(local, remote)

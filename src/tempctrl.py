@@ -51,7 +51,7 @@ class TempCtrl:
     def set_heater(self, status):
         if self.pwr:
             if status == "ON":
-                GPIO.output(self.heater_pin, 0)
+                GPIO.output(self.heater_pin, 0) 
             elif status == "OFF":
                 GPIO.output(self.heater_pin, 1)
             else:
