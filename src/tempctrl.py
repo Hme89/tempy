@@ -132,9 +132,10 @@ class TempCtrl:
 
     def log_temp(self):
         temp_inside = self.get_temp("inside")
-        # temp_inside = self.get_temp("outside")
+        temp_outside = 0
+        #temp_outside = self.get_temp("outside")
         self.logger.templog.info("{} : Inside = {} : Outside = {}".format(
-            time.time(), temp_inside, 0))
+            time.time(), temp_inside, temp_outside))
 
     def turn_off(self):
         self.logger.log.warning("Turning off and writes to pcl... ")

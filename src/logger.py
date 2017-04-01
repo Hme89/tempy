@@ -12,7 +12,7 @@ class Logger:
         self.log = logging.getLogger("Rotating log")
 
         self.templog.setLevel(logging.INFO)
-        self.log.setLevel(logging.DEBUG)
+        self.log.setLevel(logging.INFO)
 
         temphandler = RotatingFileHandler("log/templog", maxBytes=25E6, backupCount=10)
         loghandler = RotatingFileHandler("log/log", maxBytes=1E6, backupCount=5)
