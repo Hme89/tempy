@@ -51,7 +51,7 @@ class TempCtrl:
     def set_heater(self, status):
         if self.pwr:
             if status == "ON":
-                GPIO.output(self.heater_pin, 0) 
+                GPIO.output(self.heater_pin, 0)
             elif status == "OFF":
                 GPIO.output(self.heater_pin, 1)
             else:
@@ -109,13 +109,17 @@ class TempCtrl:
 
             # If off but should be on and not on cooldown: turn on
             if inside_temp < current_target_temp:
-                if GPIO.input(self.heater_pin) == 1 and time.time() > \
-                self.last_on + self.relay_cooldown:
-                    self.set_heater("ON")
+                if GPIO.input(self.heater_pin) == 1:
+                    if time.time() > self.last_on + self.relay_cooldown:
+                        self.set_heater("ON")
+                        self.logger.log.debug("Turning on...")
+                    else:
+                        self.logger.log.debug("Relay on cooldown, waiting...")
 
             # If should be off but on: turn off and update last on time
             else:
                 if GPIO.input(self.heater_pin) == 0:
+                    self.logger.log.debug("Turning off...")
                     self.set_heater("OFF")
                     self.last_on = time.time()
 
