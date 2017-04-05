@@ -133,7 +133,7 @@ class TempCtrl:
     def log_temp(self):
         temp_inside = self.get_temp("inside")
         # temp_inside = self.get_temp("outside")
-        self.logger.templog.info("{} : Inside = {} : Outside = {}".format(
+        self.logger.templog.info("{:.2f} : Inside = {} : Outside = {}".format(
             time.time(), temp_inside, 0))
 
     def turn_off(self):
