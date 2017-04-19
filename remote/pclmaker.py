@@ -5,10 +5,10 @@ data = {
 "pwr": True,
 "target_temp": 20,
 "mode": "schedule",
-"update_freq": 60*60,
+"update_freq": 30*60,
 "measure_freq": 10,
-"temp_log_freq": 10*60,
-"relay_cooldown": 60
+"temp_log_freq": 2*60,
+"relay_cooldown": 3*60
 }
 
 outfile = open("config.pcl", "wb")
