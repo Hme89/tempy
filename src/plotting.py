@@ -22,5 +22,6 @@ for i in range(n):
     outside_temps[i] = float(data[2].split("=")[1])
 
 print("\nEntries: ",n)
-plt.plot(times[-300:], inside_temps[-300:])
+#plt.plot(times[-300:], inside_temps[-300:])
+plt.plot(times, inside_temps)
 plt.show()

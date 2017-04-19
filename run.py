@@ -36,7 +36,7 @@ def sync_and_start(pwr_thread):
 
     Timer(ctrl.update_freq, sync_and_start, args=(pwr_thread,)).start()
     ctrl.logger.log.info("Remote synced and thread initiated")
-    ctrl.status()
+    ctrl.logger.log.info(ctrl.status())
 
 
 def log_temp():
