@@ -88,7 +88,7 @@ class TempCtrl:
 
     def status(self):
         # Return current heating status and temp ect.
-        print("""\nStatus of config values
+        return("""\nStatus of config values
         pwr            {}
         target_temp    {}
         mode           {}
