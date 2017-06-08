@@ -23,13 +23,10 @@ def firstrun():
         "key": key,
         "email": register_email
     })
-    print(reg_info)
 
     # try:
     enc_response = requests.post(register_url, json=reg_info).text
-    print("\nenc", enc_response)
     response = decrypt_server_info(enc_response, key)
-    print("\nres", response)
 
     if response == uid:
         print("Registration successfull, follow email link to complete")

@@ -21,7 +21,7 @@ def sync_and_start(pwr_thread):
         pwr_thread = Thread(target = ctrl.start)
         pwr_thread.start()
 
-
+    ctrl.get_remote_values()
     Timer(ctrl.update_freq, sync_and_start, args=(pwr_thread,)).start()
     ctrl.logger.log.info(ctrl.status())
 

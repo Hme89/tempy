@@ -1,9 +1,7 @@
 import GPIOEmu as GPIO    # dummy GPIO library for testing
 # import RPi.GPIO as GPIO
 from urllib.parse import urljoin
-
 from src.crypto import decrypt_server_info
-from src.schedule import Schedule
 from src.logger import Logger
 import config
 
@@ -15,7 +13,8 @@ class TempCtrl:
         # Options
         self.heater_pins = config.heater_pins
         self.sensors_id = config.sensors_id
-        self.schedule = Schedule(None)
+        self.scheduled_events = []
+        self._sched_target = 20
         self.logger = Logger()
         self.last_on = 0                # Last time oven was on
 
@@ -28,7 +27,6 @@ class TempCtrl:
         self.temp_log_freq = 60*5       # time temperature logging
         self.relay_cooldown = 60*5      # Turn on oven max every n seconds
 
-        self.get_remote_values()
 
         # Setup gpio
         GPIO.setmode(GPIO.BCM)
@@ -40,18 +38,18 @@ class TempCtrl:
 
     def get_remote_values(self):
         try:
-            enc_values = requests.get( urljoin(config.info_url, config.uid) ).txt
+            enc_values = requests.get( urljoin(config.info_url, config.uid) ).text
             values = decrypt_server_info(enc_values, config.key)
         except:
             self.logger.log.warning("Could not pull updates...: ",exc_info = True )
             return
-
         try:
             keys = ["pwr","target_temp","mode","update_freq","measure_freq",
-            "temp_log_freq", "relay_cooldown", "schedule"]
+            "temp_log_freq", "relay_cooldown", "scheduled_events"]
+            self.logger.log.debug("Applying updates for {}".format(values))
             for key in values:
                 if key in keys:
-                    eval("self.{0} = values['{0}']".format(key))
+                    exec("self.{0} = values['{0}']".format(key))
         except:
             self.logger.log.warning("Bad config file, using default...: ",exc_info = True )
             print("Bad config file, using default...")
@@ -89,7 +87,16 @@ class TempCtrl:
             return self.target_temp
 
         elif self.mode == "schedule":
-            return self.schedule.get_target_temp()
+            t = time.localtime()
+            for event in reversed(self.schedule_events):
+                if event[0] <= t.tm_wday:
+                    if event[1] <= t.tm_hour:
+                        if event[2] <= t.tm_min:
+                            print("Temp updated!")
+                            self.__target_temp = event[3]
+                            return self._sched_target
+            # If start of week return last target temp
+            return self._sched_target
 
 
     def status(self):
