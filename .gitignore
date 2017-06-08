@@ -1,6 +1,10 @@
 # Log files
 log/*
 
+# Config files
+config.py
+initialized.dat
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *$py.class
@@ -13,7 +17,3 @@ build/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-
-# Flask stuff:
-instance/
-.webassets-cache
