@@ -1,6 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from config import log_level
 
 class Logger:
     """Setup for rotating logging of program messages and temperature."""
@@ -19,7 +20,7 @@ class Logger:
         log_formatter = logging.Formatter('%(asctime)s->  %(levelname)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S ')
         temp_formatter = logging.Formatter('%(asctime)s-> %(message)s', datefmt='%d/%m/%Y %H:%M:%S ')
         temphandler.setLevel(logging.DEBUG)
-        loghandler.setLevel(logging.DEBUG)
+        loghandler.setLevel(log_level)
         temphandler.setFormatter(temp_formatter)
         loghandler.setFormatter(log_formatter)
 

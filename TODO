@@ -2,6 +2,7 @@
 * pull only changed values
 * Testing files
 
+
 * update exceptions to macth the problem
 * ensure "timedatectl set-ntp true"  /  "timedatectl status"
 * check timezones

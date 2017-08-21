@@ -24,14 +24,14 @@ def firstrun():
         "email": register_email
     })
 
-    # try:
-    enc_response = requests.post(register_url, json=reg_info).text
-    response = decrypt_server_info(enc_response, key)
+    try:
+        enc_response = requests.post(register_url, json=reg_info).text
+        response = decrypt_server_info(enc_response, key)
 
-    if response == uid:
-        print("Registration successfull, follow email link to complete")
-        with open("initialized.dat","w") as of: of.write("true")
-    #     else:
-    #         print("Somthing went wrong. Try again later with new config file")
-    # except:
-    #     print("Somthing went wrong. Try again later with new config file")
+        if response == uid:
+            print("Registration successfull, follow email link to complete")
+            with open("initialized.dat","w") as of: of.write("true")
+        else:
+            print("Somthing went wrong. Try again later with new config file")
+    except:
+        print("Somthing went wrong. Try again later with new config file")

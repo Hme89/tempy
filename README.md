@@ -1,10 +1,14 @@
 TemPy
 =============================
 
+# TODO #
+- try/except token from registration
+
 0 - Requirements
 -----------------------------
 * Python 3.6.x
 * python-cryptography
+* python-requests
 * libssh
 * sudo rights
 
@@ -40,7 +44,8 @@ Optional:
 
 1 - Usage
 -----------------------------
-
+- Run manually firs time to ensure pairing with server,
+then start and enable systemd-service.
 
 2 - Testing
 -----------------------------
