@@ -1,7 +1,8 @@
 import GPIOEmu as GPIO    # dummy GPIO library for testing
 #import RPi.GPIO as GPIO
 from urllib.parse import urljoin
-from src.crypto import decrypt_server_info
+#from src.crypto import decrypt_server_info
+import json
 import threading
 from src.logger import Logger
 import config
@@ -26,9 +27,9 @@ class TempCtrl:
         self.pwr = False
         self.target_temp = 20
         self.mode = 0                    # 0:target, 1:schedule
-        self.update_freq = 60*60         # time beteen remote updates
+        self.update_freq = 20         # time beteen remote updates
         self.measure_freq = 10           # time beteen temperature measurements
-        self.temp_log_freq = 60*10       # time temperature logging
+        self.temp_log_freq = 60       # time temperature logging
         self.relay_cooldown = 60*5       # Turn on oven max every n seconds
 
         # Setup gpio
@@ -42,15 +43,19 @@ class TempCtrl:
 
     def pull_remote_values(self):
         try:
-            enc_values = requests.get( urljoin(config.info_url, config.uid) ).text
-            if enc_values == "None":
-                self.logger.log.info("No new updates...: ")
+            #TODO keys
+            payload = {'key': config.key}
+            url = urljoin(config.info_url, config.uid)
+            values = requests.post(url, data=payload).text
+
+            if values == "None":
+                self.logger.log.info("No new updates availible, skipping...")
                 return
-            elif enc_values == "kill":
+            elif values == "kill":
+                self.logger.log.critical("Killed by remote!")
                 self.turn_off()
-            values = decrypt_server_info(enc_values, config.key)
-        except KeyboardInterrupt:
-            raise
+                return
+            values = json.loads(values)
         except:
             self.logger.log.warning("Connection error: Could not pull updates...: ")
             return
@@ -60,9 +65,10 @@ class TempCtrl:
             for key in values:
                 if key in keys:
                     self.logger.log.debug("Applying update: {} = {}".format(key, values[key]))
-                exec("self.{0} = values['{0}']".format(key))
-        except KeyboardInterrupt:
-            raise
+                    exec("self.{0} = values['{0}']".format(key))
+
+            self.logger.log.info("Applying update: {} ".format(values))
+
         except:
             self.logger.log.warning("Bad config file, using default...: ",exc_info = True )
 

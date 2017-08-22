@@ -1,4 +1,4 @@
-from src.crypto import gen_key, decrypt_server_info
+from src.crypto import gen_key
 from config import register_url, register_email
 import uuid
 import requests
@@ -25,8 +25,7 @@ def firstrun():
     })
 
     try:
-        enc_response = requests.post(register_url, json=reg_info).text
-        response = decrypt_server_info(enc_response, key)
+        response = requests.post(register_url, json=reg_info).text
 
         if response == uid:
             print("Registration successfull, follow email link to complete")
