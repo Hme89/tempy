@@ -8,7 +8,7 @@ if not os.path.isfile("initialized.dat"):
     firstrun()
 
 ctrl = TempCtrl()
-ctrl.logger.log.info("\n\n New startup: {} \n".format(time.ctime()))
+ctrl.log.info("\n\n New startup: {} \n".format(time.ctime()))
 
 
 try:
@@ -19,5 +19,5 @@ except KeyboardInterrupt:
     ctrl.turn_off()
 
 except:
-    ctrl.logger.log.critical("Unexpected error:\n",  exc_info = True)
+    ctrl.log.critical("Unexpected error:\n",  exc_info = True)
     raise
