@@ -1,5 +1,3 @@
-import GPIOEmu as GPIO    # dummy GPIO library for testing
-#import RPi.GPIO as GPIO
 from urllib.parse import urljoin
 import json
 import threading
@@ -9,6 +7,11 @@ import config
 import time, requests
 import zlib
 import shutil, os
+
+if config.debug:
+    import GPIOEmu as GPIO    # dummy GPIO library for testing
+else:
+    import RPi.GPIO as GPIO
 
 class TempCtrl:
 
@@ -23,7 +26,7 @@ class TempCtrl:
         self.last_pushed_warnings = 0
         self.templog = TempLog("templog", self.log)
         self.last_on = 0
-        self.temps = {"inside":20,"outside":None}
+        self.temps = {"inside":20,"outside":0}
         self.running = False
         self.failed = False
 
@@ -100,8 +103,8 @@ class TempCtrl:
             self.log.warning("Connection error: Could not push logs...: ")
             return
 
-    # Heater status  ON / OFF        paylo
 
+    # Heater status  ON / OFF
     def set_heater(self, status):
         if status == "ON":
             GPIO.output(self.heater_pins, 0)
@@ -115,7 +118,8 @@ class TempCtrl:
     def read_temps(self):
         # Read temp from file w1
         #self.turn_off()
-        return
+        if config.debug:
+            return
 
         for sensor in self.sensors_id:
             sens_loc = "/sys/bus/w1/devices/{}/w1_slave".format(self.sensors_id[sensor])
@@ -135,8 +139,8 @@ class TempCtrl:
         if self.mode == 0:
             return self.target_temp
 
-
         elif self.mode == 1:
+            # Scheduled events: [[weekday, hour, minute, target_temp] ... ]
             t = time.localtime()
             for event in reversed(self.scheduled_events):
                 if event[0] <= t.tm_wday:

@@ -5,6 +5,7 @@ path = "/home/user/tempy"
 server_url = "http://127.0.0.1:5000/"
 register_email = "mail@mail.com"
 log_level = "DEBUG"
+debug = False
 
 
 heater_pins = [27,]

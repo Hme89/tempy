@@ -65,7 +65,6 @@ class TempLog(Logger):
     def log_temp(self, time, inside, outside, target):
         self.log.info("{} ¤ Inside = {} ¤ Outside = {} ¤ Target = {}".format(
             time, inside, outside, target))
-        print(time, inside, outside, target, " Was logged")
 
 
     def export_temp_log(self):

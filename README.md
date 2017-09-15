@@ -5,8 +5,6 @@ TemPy
 -----------------------------
 * Python 3.6.x
 * python-requests
-* libssh
-* sudo rights
 
 1 - Setup
 -----------------------------
