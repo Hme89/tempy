@@ -1,5 +1,5 @@
-import time, os
 #!/usr/bin/env python
+import time, os
 if not os.path.isfile("initialized.dat"):
     from src.firstrun import firstrun
     firstrun()

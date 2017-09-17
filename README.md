@@ -15,7 +15,7 @@ TemPy
 
 - Tempy
   This program :) Placed in home folder for easy guthub pulled updates.
-  Place systemd file in /etc/systemd/system/tempy
+  Place systemd file in /etc/systemd/system/tempy.service
   systemctl enable & start
 
 Optional:

@@ -42,14 +42,17 @@ class TempCtrl:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.heater_pins, GPIO.OUT, initial=1)
 
+        # Pull updates on fresh startup
+        self.pull_remote_values(force=True)
+
 
     def __del__(self):
         GPIO.cleanup()
 
 
-    def pull_remote_values(self):
+    def pull_remote_values(self, force=False):
         try:
-            payload = {'key': config.key}
+            payload = {'key': config.key, "force":1 if force else 0}
             url = urljoin(config.info_url, config.uid)
             values = requests.post(url, data=payload).text
 
@@ -64,6 +67,7 @@ class TempCtrl:
         except:
             self.log.warning("Connection error: Could not pull updates...: ")
             return False
+
         try:
             keys = ["pwr","target_temp","mode","update_freq","measure_freq",
             "temp_log_freq", "relay_cooldown", "scheduled_events"]
@@ -115,8 +119,6 @@ class TempCtrl:
 
 
     def read_temps(self):
-        # Read temp from file w1
-        #self.turn_off()
         if config.debug:
             return
 
@@ -141,12 +143,11 @@ class TempCtrl:
         elif self.mode == 1:
             # Scheduled events: [[weekday, hour, minute, target_temp] ... ]
             t = time.localtime()
+            t_hash = (t.tm_wday+1)*10000 + t.tm_hour*100 + t.tm_min
             for event in reversed(self.scheduled_events):
-                if event[0] <= t.tm_wday:
-                    if event[1] <= t.tm_hour:
-                        if event[2] <= t.tm_min:
-                            self.__target_temp = event[3]
-                            return self._sched_target
+                if event[0] <= t_hash:
+                    self._sched_target = int(event[1])
+                    return self._sched_target
             # If start of week return last target temp
             return self._sched_target
 
