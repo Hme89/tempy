@@ -1,11 +1,11 @@
-#!/usr/bin/env python
-from src.tempctrl import TempCtrl
-from config import path
 import time, os
-
+#!/usr/bin/env python
 if not os.path.isfile("initialized.dat"):
     from src.firstrun import firstrun
     firstrun()
+
+from src.tempctrl import TempCtrl
+from config import path
 
 ctrl = TempCtrl()
 ctrl.log.info("\n\n New startup: {} \n".format(time.ctime()))

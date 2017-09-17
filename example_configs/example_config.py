@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 
 
 path = "/home/user/tempy"
-server_url = "http://127.0.0.1:5000/"
+server_url = "https://valdres.hovrud.com"
 register_email = "mail@mail.com"
 log_level = "DEBUG"
 debug = False

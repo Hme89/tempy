@@ -5,6 +5,7 @@ TemPy
 -----------------------------
 * Python 3.6.x
 * python-requests
+*  python-raspberry-gpio (AUR)
 
 1 - Setup
 -----------------------------

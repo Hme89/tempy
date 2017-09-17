@@ -6,7 +6,6 @@ from src.crypto import compress
 import config
 import time, requests
 import zlib
-import shutil, os
 
 if config.debug:
     import GPIOEmu as GPIO    # dummy GPIO library for testing
