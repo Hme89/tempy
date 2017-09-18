@@ -212,8 +212,10 @@ class TempCtrl:
 
         if not self.running:
             update()
-            lt()
+            time.sleep(10)
             power()
+            time.sleep(10)
+            lt()
             self.running = True
 
 
